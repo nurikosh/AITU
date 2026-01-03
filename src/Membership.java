@@ -1,21 +1,47 @@
-public class Membership {
-    // Private fields
-    private final String membershipId;
-    private String planType; // Basic, Premium, VIP
-    private int monthlyFee;
-    private int durationMonths;
-    private boolean isActive;
-    private String startDate;
+public abstract class Membership {
+    // Protected fields (accessible by subclasses)
+    protected final String membershipId;
+    protected String planType;
+    protected int monthlyFee;
+    protected int durationMonths;
+    protected boolean isActive;
+    protected String startDate;
 
     // Constructor
     public Membership(String membershipId, String planType, int monthlyFee, int durationMonths) {
-        this.membershipId = membershipId;
-        this.planType = planType;
-        this.monthlyFee = monthlyFee;
-        this.durationMonths = durationMonths;
+        if (membershipId == null || membershipId.trim().isEmpty()) {
+            System.out.println("Error: Membership ID cannot be null or empty");
+            this.membershipId = "INVALID";
+        } else {
+            this.membershipId = membershipId;
+        }
+
+        if (planType == null || planType.trim().isEmpty()) {
+            System.out.println("Error: Plan type cannot be null or empty");
+            this.planType = "Basic";
+        } else {
+            this.planType = planType;
+        }
+
+        if (monthlyFee < 0) {
+            System.out.println("Error: Monthly fee cannot be negative");
+            this.monthlyFee = 0;
+        } else {
+            this.monthlyFee = monthlyFee;
+        }
+
+        if (durationMonths <= 0) {
+            System.out.println("Error: Duration must be greater than 0");
+            this.durationMonths = 1;
+        } else {
+            this.durationMonths = durationMonths;
+        }
+
         this.isActive = true;
         this.startDate = "2025-12-26"; // Default start date
     }
+
+    public abstract void showBenefits();
 
     // Getters
     public String getMembershipId() {
@@ -44,14 +70,26 @@ public class Membership {
 
     // Setters
     public void setPlanType(String planType) {
+        if (planType == null || planType.trim().isEmpty()) {
+            System.out.println("Error: Plan type cannot be null or empty");
+            return;
+        }
         this.planType = planType;
     }
 
     public void setMonthlyFee(int monthlyFee) {
+        if (monthlyFee < 0) {
+            System.out.println("Error: Monthly fee cannot be negative");
+            return;
+        }
         this.monthlyFee = monthlyFee;
     }
 
     public void setDurationMonths(int durationMonths) {
+        if (durationMonths <= 0) {
+            System.out.println("Error: Duration must be greater than 0");
+            return;
+        }
         this.durationMonths = durationMonths;
     }
 
@@ -60,6 +98,10 @@ public class Membership {
     }
 
     public void setStartDate(String startDate) {
+        if (startDate == null || startDate.trim().isEmpty()) {
+            System.out.println("Error: Start date cannot be null or empty");
+            return;
+        }
         this.startDate = startDate;
     }
 

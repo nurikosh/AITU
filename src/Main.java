@@ -1,45 +1,164 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 class Main {
-    static void main() {
-        // Member
-        System.out.println("Member");
-        Member member = new Member("123456789", "John", 25, "");
-        member.setWeight(80.0);
-        member.attendSession();
-        member.displayInfo();
-        member.calculateBMI(1.75);
-        System.out.print("\n");
+    static ArrayList<Member> members = new ArrayList<>();
+    static ArrayList<Trainer> trainers = new ArrayList<>();
+    static ArrayList<Membership> memberships = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
 
-        // Trainer
-        System.out.println("Trainer");
-        Trainer trainer = new Trainer("987654321", "Jane", "Yoga", 10);
-        trainer.assignClient();
-        trainer.setHourlyRate(5000);
-        trainer.displayInfo();
-        trainer.calculateMonthlyEarnings(40);
-        System.out.print("\n");
+    public static void main(String[] args) {
+        while (true) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
+            switch (choice) {
+                case 1:
+                    addMember();
+                    break;
+                case 2:
+                    viewAllMembers();
+                    break;
+                case 3:
+                    addTrainer();
+                    break;
+                case 4:
+                    viewAllTrainers();
+                    break;
+                case 5:
+                    addMembership();
+                    break;
+                case 6:
+                    viewAllMemberships();
+                    break;
+                case 0:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+            System.out.println();
+        }
+    }
 
-        //Memberships
+    static void displayMenu() {
+        System.out.println("=== GYM SYSTEM ===");
+        System.out.println("1. Add Member");
+        System.out.println("2. View All Members");
+        System.out.println("3. Add Trainer");
+        System.out.println("4. View All Trainers");
+        System.out.println("5. Add Membership");
+        System.out.println("6. View All Memberships");
+        System.out.println("0. Exit");
+        System.out.print("Enter choice: ");
+    }
 
-        System.out.println("Memberships");
-        Membership membership1 = new Membership("4792920", "Premium", 100000, 12);
-        membership1.displayInfo();
-        System.out.println();
+    static void addMember() {
+        System.out.print("Enter ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter an email: ");
+        String membershipType = scanner.nextLine();
 
-        membership1.calculateTotalCost();
-        membership1.applyDiscount(10);
-        System.out.println("\n");
+        Member member = new Member(id, name, age, membershipType);
+        members.add(member);
+        System.out.println("Member added successfully!");
+    }
 
-        Membership membership2 = new Membership("3783787832", "Basic", 19990, 6);
-        membership2.displayInfo();
-        System.out.println();
-        membership2.calculateTotalCost();
-        System.out.println();
+    static void viewAllMembers() {
+        if (members.isEmpty()) {
+            System.out.println("No members found.");
+            return;
+        }
+        System.out.println("\n=== ALL MEMBERS ===");
+        for (Member member : members) {
+            member.displayInfo();
+            System.out.println("-------------------");
+        }
+    }
 
-        membership2.cancelMembership();
-        System.out.println("Status after cancellation: " + (membership2.isActive() ? "Active" : "Inactive"));
+    static void addTrainer() {
+        System.out.print("Enter ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Specialization: ");
+        String specialization = scanner.nextLine();
+        System.out.print("Enter Experience (years): ");
+        int experience = scanner.nextInt();
+        scanner.nextLine();
 
+        Trainer trainer = new Trainer(id, name, specialization, experience);
+        trainers.add(trainer);
+        System.out.println("Trainer added successfully!");
+    }
 
+    static void viewAllTrainers() {
+        if (trainers.isEmpty()) {
+            System.out.println("No trainers found.");
+            return;
+        }
+        System.out.println("\n=== ALL TRAINERS ===");
+        for (Trainer trainer : trainers) {
+            trainer.displayInfo();
+            System.out.println("-------------------");
+        }
+    }
+
+    static void addMembership() {
+        System.out.println("\n=== SELECT MEMBERSHIP TYPE ===");
+        System.out.println("1. Basic Membership (19,990 tenge/month)");
+        System.out.println("2. Premium Membership (35,000 tenge/month)");
+        System.out.println("3. VIP Membership (100,000 tenge/month)");
+        System.out.print("Enter choice: ");
+        int type = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        System.out.print("Enter Membership ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Duration (months): ");
+        int duration = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        Membership membership;
+        switch (type) {
+            case 1:
+                membership = new BasicMembership(id, duration);
+                break;
+            case 2:
+                membership = new PremiumMembership(id, duration);
+                break;
+            case 3:
+                membership = new VIPMembership(id, duration);
+                break;
+            default:
+                System.out.println("Invalid membership type!");
+                return;
+        }
+
+        memberships.add(membership);
+        System.out.println("\nMembership added successfully!");
+        membership.showBenefits();
+    }
+
+    static void viewAllMemberships() {
+        if (memberships.isEmpty()) {
+            System.out.println("No memberships found.");
+            return;
+        }
+
+        System.out.println("\n=== ALL MEMBERSHIPS ===");
+        for (Membership membership : memberships) {
+            membership.displayInfo();
+            membership.showBenefits();
+            System.out.println("-------------------");
+        }
     }
 }
 

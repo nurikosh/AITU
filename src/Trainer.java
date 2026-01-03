@@ -9,10 +9,34 @@ public class Trainer {
 
     // Constructor
     public Trainer(String trainerId, String name, String specialization, int yearsOfExperience) {
-        this.trainerId = trainerId;
-        this.name = name;
-        this.specialization = specialization;
-        this.yearsOfExperience = yearsOfExperience;
+        if (trainerId == null || trainerId.trim().isEmpty()) {
+            System.out.println("Error: Trainer ID cannot be null or empty");
+            this.trainerId = "INVALID";
+        } else {
+            this.trainerId = trainerId;
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: Name cannot be null or empty");
+            this.name = "Unknown";
+        } else {
+            this.name = name;
+        }
+
+        if (specialization == null || specialization.trim().isEmpty()) {
+            System.out.println("Error: Specialization cannot be null or empty");
+            this.specialization = "General";
+        } else {
+            this.specialization = specialization;
+        }
+
+        if (yearsOfExperience < 0) {
+            System.out.println("Error: Years of experience cannot be negative");
+            this.yearsOfExperience = 0;
+        } else {
+            this.yearsOfExperience = yearsOfExperience;
+        }
+
         this.hourlyRate = 0;
         this.clientsAssigned = 0;
     }
@@ -44,18 +68,34 @@ public class Trainer {
 
     // Setters
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: Name cannot be null or empty");
+            return;
+        }
         this.name = name;
     }
 
     public void setSpecialization(String specialization) {
+        if (specialization == null || specialization.trim().isEmpty()) {
+            System.out.println("Error: Specialization cannot be null or empty");
+            return;
+        }
         this.specialization = specialization;
     }
 
     public void setYearsOfExperience(int yearsOfExperience) {
+        if (yearsOfExperience < 0) {
+            System.out.println("Error: Years of experience cannot be negative");
+            return;
+        }
         this.yearsOfExperience = yearsOfExperience;
     }
 
     public void setHourlyRate(int hourlyRate) {
+        if (hourlyRate < 0) {
+            System.out.println("Error: Hourly rate cannot be negative");
+            return;
+        }
         this.hourlyRate = hourlyRate;
     }
 

@@ -9,10 +9,37 @@ public class Member {
 
     // Constructor
     public Member(String memberId, String name, int age, String email) {
-        this.memberId = memberId;
-        this.name = name;
-        this.age = age;
-        this.email = email;
+        if (memberId == null || memberId.trim().isEmpty()) {
+            System.out.println("Error: Member ID cannot be null or empty");
+            this.memberId = "INVALID";
+        } else {
+            this.memberId = memberId;
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: Name cannot be null or empty");
+            this.name = "Unknown";
+        } else {
+            this.name = name;
+        }
+
+        if (age <= 0) {
+            System.out.println("Error: Age must be greater than 0");
+            this.age = 18;
+        } else {
+            this.age = age;
+        }
+
+        if (email == null || email.trim().isEmpty()) {
+            System.out.println("Error: Email cannot be null or empty");
+            this.email = "invalid@email.com";
+        } else if (!email.contains("@")) {
+            System.out.println("Error: Email must contain '@'");
+            this.email = "invalid@email.com";
+        } else {
+            this.email = email;
+        }
+
         this.weight = 0.0;
         this.sessionsAttended = 0;
     }
@@ -44,18 +71,38 @@ public class Member {
 
     // Setters
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: Name cannot be null or empty");
+            return;
+        }
         this.name = name;
     }
 
     public void setAge(int age) {
+        if (age <= 0) {
+            System.out.println("Error: Age must be greater than 0");
+            return;
+        }
         this.age = age;
     }
 
     public void setEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            System.out.println("Error: Email cannot be null or empty");
+            return;
+        }
+        if (!email.contains("@")) {
+            System.out.println("Error: Email must contain '@'");
+            return;
+        }
         this.email = email;
     }
 
     public void setWeight(double weight) {
+        if (weight < 0) {
+            System.out.println("Error: Weight cannot be negative");
+            return;
+        }
         this.weight = weight;
     }
 
