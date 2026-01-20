@@ -1,4 +1,6 @@
-public class Member {
+package models;
+
+public class Member implements Displayable {
 
     private final String memberId;
     private String name;
@@ -10,7 +12,7 @@ public class Member {
     // Constructor
     public Member(String memberId, String name, int age, String email) {
         if (memberId == null || memberId.trim().isEmpty()) {
-            System.out.println("Error: Member ID cannot be null or empty");
+            System.out.println("Error: models.Member ID cannot be null or empty");
             this.memberId = "INVALID";
         } else {
             this.memberId = memberId;
@@ -70,38 +72,33 @@ public class Member {
     }
 
     // Setters
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException {
         if (name == null || name.trim().isEmpty()) {
-            System.out.println("Error: Name cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws IllegalArgumentException {
         if (age <= 0) {
-            System.out.println("Error: Age must be greater than 0");
-            return;
+            throw new IllegalArgumentException("Age must be greater than 0");
         }
         this.age = age;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws IllegalArgumentException {
         if (email == null || email.trim().isEmpty()) {
-            System.out.println("Error: Email cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Email cannot be null or empty");
         }
         if (!email.contains("@")) {
-            System.out.println("Error: Email must contain '@'");
-            return;
+            throw new IllegalArgumentException("Email must contain '@'");
         }
         this.email = email;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(double weight) throws IllegalArgumentException {
         if (weight < 0) {
-            System.out.println("Error: Weight cannot be negative");
-            return;
+            throw new IllegalArgumentException("Weight cannot be negative");
         }
         this.weight = weight;
     }
@@ -122,8 +119,9 @@ public class Member {
         return bmi;
     }
 
+    @Override
     public void displayInfo() {
-        System.out.println("Member ID: " + memberId);
+        System.out.println("models.Member ID: " + memberId);
         System.out.println("Name: " + name);
         System.out.println("Age: " + age);
         System.out.println("Email: " + email);

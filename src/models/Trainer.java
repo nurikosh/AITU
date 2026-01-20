@@ -1,4 +1,6 @@
-public class Trainer {
+package models;
+
+public class Trainer implements Displayable {
     // Private fields
     private final String trainerId;
     private String name;
@@ -10,7 +12,7 @@ public class Trainer {
     // Constructor
     public Trainer(String trainerId, String name, String specialization, int yearsOfExperience) {
         if (trainerId == null || trainerId.trim().isEmpty()) {
-            System.out.println("Error: Trainer ID cannot be null or empty");
+            System.out.println("Error: models.Trainer ID cannot be null or empty");
             this.trainerId = "INVALID";
         } else {
             this.trainerId = trainerId;
@@ -67,34 +69,30 @@ public class Trainer {
     }
 
     // Setters
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException {
         if (name == null || name.trim().isEmpty()) {
-            System.out.println("Error: Name cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
     }
 
-    public void setSpecialization(String specialization) {
+    public void setSpecialization(String specialization) throws IllegalArgumentException {
         if (specialization == null || specialization.trim().isEmpty()) {
-            System.out.println("Error: Specialization cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Specialization cannot be null or empty");
         }
         this.specialization = specialization;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
+    public void setYearsOfExperience(int yearsOfExperience) throws IllegalArgumentException {
         if (yearsOfExperience < 0) {
-            System.out.println("Error: Years of experience cannot be negative");
-            return;
+            throw new IllegalArgumentException("Years of experience cannot be negative");
         }
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public void setHourlyRate(int hourlyRate) {
+    public void setHourlyRate(int hourlyRate) throws IllegalArgumentException {
         if (hourlyRate < 0) {
-            System.out.println("Error: Hourly rate cannot be negative");
-            return;
+            throw new IllegalArgumentException("Hourly rate cannot be negative");
         }
         this.hourlyRate = hourlyRate;
     }
@@ -115,8 +113,9 @@ public class Trainer {
         return monthlyEarnings;
     }
 
+    @Override
     public void displayInfo() {
-        System.out.println("Trainer ID: " + trainerId);
+        System.out.println("models.Trainer ID: " + trainerId);
         System.out.println("Name: " + name);
         System.out.println("Specialization: " + specialization);
         System.out.println("Experience: " + yearsOfExperience + " years");

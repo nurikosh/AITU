@@ -1,3 +1,5 @@
+package models;
+
 public abstract class Membership {
     // Protected fields (accessible by subclasses)
     protected final String membershipId;
@@ -10,7 +12,7 @@ public abstract class Membership {
     // Constructor
     public Membership(String membershipId, String planType, int monthlyFee, int durationMonths) {
         if (membershipId == null || membershipId.trim().isEmpty()) {
-            System.out.println("Error: Membership ID cannot be null or empty");
+            System.out.println("Error: models.Membership ID cannot be null or empty");
             this.membershipId = "INVALID";
         } else {
             this.membershipId = membershipId;
@@ -69,26 +71,23 @@ public abstract class Membership {
     }
 
     // Setters
-    public void setPlanType(String planType) {
+    public void setPlanType(String planType) throws IllegalArgumentException {
         if (planType == null || planType.trim().isEmpty()) {
-            System.out.println("Error: Plan type cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Plan type cannot be null or empty");
         }
         this.planType = planType;
     }
 
-    public void setMonthlyFee(int monthlyFee) {
+    public void setMonthlyFee(int monthlyFee) throws IllegalArgumentException {
         if (monthlyFee < 0) {
-            System.out.println("Error: Monthly fee cannot be negative");
-            return;
+            throw new IllegalArgumentException("Monthly fee cannot be negative");
         }
         this.monthlyFee = monthlyFee;
     }
 
-    public void setDurationMonths(int durationMonths) {
+    public void setDurationMonths(int durationMonths) throws IllegalArgumentException {
         if (durationMonths <= 0) {
-            System.out.println("Error: Duration must be greater than 0");
-            return;
+            throw new IllegalArgumentException("Duration must be greater than 0");
         }
         this.durationMonths = durationMonths;
     }
@@ -97,10 +96,9 @@ public abstract class Membership {
         isActive = active;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(String startDate) throws IllegalArgumentException {
         if (startDate == null || startDate.trim().isEmpty()) {
-            System.out.println("Error: Start date cannot be null or empty");
-            return;
+            throw new IllegalArgumentException("Start date cannot be null or empty");
         }
         this.startDate = startDate;
     }
@@ -127,11 +125,11 @@ public abstract class Membership {
 
     public void cancelMembership() {
         this.isActive = false;
-        System.out.println("Membership " + membershipId + " has been cancelled");
+        System.out.println("models.Membership " + membershipId + " has been cancelled");
     }
 
     public void displayInfo() {
-        System.out.println("Membership ID: " + membershipId);
+        System.out.println("models.Membership ID: " + membershipId);
         System.out.println("Plan Type: " + planType);
         System.out.println("Monthly Fee: " + monthlyFee);
         System.out.println("Duration: " + durationMonths + " months");

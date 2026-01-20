@@ -1,3 +1,5 @@
+package models;
+
 public class VIPMembership extends Membership {
 
     public VIPMembership(String membershipId, int durationMonths) {
@@ -6,7 +8,7 @@ public class VIPMembership extends Membership {
 
     @Override
     public void showBenefits() {
-        System.out.println("=== VIP Membership Benefits ===");
+        System.out.println("=== VIP models.Membership Benefits ===");
         System.out.println("- 24/7 access to all gym facilities");
         System.out.println("- All equipment access including exclusive VIP zone");
         System.out.println("- Private locker room with spa amenities");
